@@ -269,6 +269,9 @@ public class SpringApplication {
 		Assert.notNull(primarySources, "PrimarySources must not be null");
 		this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
 		this.webApplicationType = WebApplicationType.deduceFromClasspath();
+		// 实例化的时候会先从spring.factories中寻找ContextInitializer类型的类，进行设置
+		// 此时已经完成spring.factories的加载，将其中的属性放入cache中，通过SpringFactoriesLoader加载
+		// 在内部已经完成实例化动作，此时set动作set已经是实例化后的对象
 		setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));
 		setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
 		this.mainApplicationClass = deduceMainApplicationClass();
@@ -421,6 +424,7 @@ public class SpringApplication {
 		ClassLoader classLoader = getClassLoader();
 		// Use names and ensure unique to protect against duplicates
 		Set<String> names = new LinkedHashSet<>(SpringFactoriesLoader.loadFactoryNames(type, classLoader));
+		// 创建从spring.factories中拿到的对象name集合，通过构造函数完成他们的实例化动作
 		List<T> instances = createSpringFactoriesInstances(type, parameterTypes, classLoader, args, names);
 		AnnotationAwareOrderComparator.sort(instances);
 		return instances;

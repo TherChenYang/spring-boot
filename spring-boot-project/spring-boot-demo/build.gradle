@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.springframework.boot'
+version = '2.3.13.BUILD-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation(project(":spring-boot-project:spring-boot"))
+    implementation(project(":spring-boot-project:spring-boot-actuator"))
+    implementation(project(":spring-boot-project:spring-boot-actuator-autoconfigure"))
+    implementation(project(":spring-boot-project:spring-boot-autoconfigure"))
+    implementation(project(":spring-boot-project:spring-boot-cli"))
+    implementation(project(":spring-boot-project:spring-boot-devtools"))
+    implementation(project(":spring-boot-project:spring-boot-properties-migrator"))
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -23,13 +23,12 @@ allprojects {
 	group "org.springframework.boot"
 
 	repositories {
+
+		maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+		maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+		maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'}
+		mavenLocal()
 		mavenCentral()
-		if (!version.endsWith('RELEASE')) {
-			maven { url "https://repo.spring.io/milestone" }
-		}
-		if (version.endsWith('BUILD-SNAPSHOT')) {
-			maven { url "https://repo.spring.io/snapshot" }
-		}
 	}
 
 	configurations.all {
